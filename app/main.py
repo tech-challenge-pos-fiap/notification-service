@@ -21,7 +21,7 @@ async def main() -> None:
     await consumer.run_forever()
 
 
-if __name__ == "__main__":
+def run() -> None:
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
@@ -29,3 +29,7 @@ if __name__ == "__main__":
     except Exception as e:
         logger.error(f"Fatal error: {str(e)}", exc_info=True)
         raise
+
+
+if __name__ == "__main__":
+    run()

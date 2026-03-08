@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from typing import Optional, Dict, Any
 from enum import Enum
 
@@ -20,8 +20,7 @@ class SendNotificationRequestDTO(BaseModel):
     subject: str = Field(..., description="Email subject")
     data: Dict[str, Any] = Field(default_factory=dict, description="Template variables")
     
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)
 
 
 class NotificationResponseDTO(BaseModel):
@@ -29,5 +28,4 @@ class NotificationResponseDTO(BaseModel):
     status: str
     message: Optional[str] = None
     
-    class Config:
-        use_enum_values = True
+    model_config = ConfigDict(use_enum_values=True)

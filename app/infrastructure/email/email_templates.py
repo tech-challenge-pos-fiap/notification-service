@@ -12,7 +12,7 @@ TEMPLATES = {
             body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
             .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; }
             .header { text-align: center; color: #333; margin-bottom: 20px; }
-            .button { display: inline-block; background-color: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
+            .button { display: inline-block; background-color: #666666; color: white !important; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
             .footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; }
         </style>
     </head>
@@ -27,7 +27,7 @@ TEMPLATES = {
             <p>Obrigado por se cadastrar! Para completar o seu registro, clique no link abaixo para verificar seu email:</p>
             
             <center>
-                <a href="{{ verification_link }}" class="button">Verificar Email</a>
+                <a href="{{ verification_link }}" class="button" style="color: white !important;">Verificar Email</a>
             </center>
             
             <p>Ou copie e cole este link no seu navegador:</p>
@@ -50,7 +50,7 @@ TEMPLATES = {
             body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
             .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; }
             .header { text-align: center; color: #333; margin-bottom: 20px; }
-            .button { display: inline-block; background-color: #dc3545; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
+            .button { display: inline-block; background-color: #666666; color: white !important; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
             .footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; }
         </style>
     </head>
@@ -65,7 +65,7 @@ TEMPLATES = {
             <p>Recebemos uma solicitação para redefinir sua senha. Clique no link abaixo:</p>
             
             <center>
-                <a href="{{ reset_link }}" class="button">Redefinir Senha</a>
+                <a href="{{ reset_link }}" class="button" style="color: white !important;">Redefinir Senha</a>
             </center>
             
             <p>Este link expira em 1 hora.</p>
@@ -86,7 +86,7 @@ TEMPLATES = {
             .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; }
             .header { text-align: center; color: #333; margin-bottom: 20px; }
             .success { color: #28a745; font-size: 18px; font-weight: bold; }
-            .button { display: inline-block; background-color: #28a745; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
+            .button { display: inline-block; background-color: #666666; color: white !important; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
             .footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; }
         </style>
     </head>
@@ -110,7 +110,7 @@ TEMPLATES = {
             <p>Seu vídeo agora está disponível. Clique abaixo para visualizar:</p>
             
             <center>
-                <a href="{{ video_link }}" class="button">Ver Vídeo</a>
+                <a href="{{ video_link }}" class="button" style="color: white !important;">Ver vídeo</a>
             </center>
         </div>
     </body>
@@ -127,7 +127,7 @@ TEMPLATES = {
             .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; }
             .header { text-align: center; color: #333; margin-bottom: 20px; }
             .error { color: #dc3545; font-size: 18px; font-weight: bold; }
-            .button { display: inline-block; background-color: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
+            .button { display: inline-block; background-color: #666666; color: white !important; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
             .footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; }
         </style>
     </head>
@@ -148,11 +148,8 @@ TEMPLATES = {
                 <li><strong>Motivo da Falha:</strong> {{ error_reason }}</li>
             </ul>
             
-            <p>Por favor, tente novamente ou entre em contato com o suporte.</p>
+            <p>Por favor, tente novamente.</p>
             
-            <center>
-                <a href="{{ support_link }}" class="button">Contactar Suporte</a>
-            </center>
         </div>
     </body>
     </html>
@@ -167,7 +164,7 @@ TEMPLATES = {
             body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
             .container { max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 8px; }
             .header { text-align: center; color: #333; margin-bottom: 20px; }
-            .button { display: inline-block; background-color: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
+            .button { display: inline-block; background-color: #666666; color: white !important; padding: 12px 30px; text-decoration: none; border-radius: 4px; margin: 20px 0; }
             .footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; }
         </style>
     </head>
@@ -187,14 +184,6 @@ TEMPLATES = {
                 <li>✓ Acessar seus vídeos processados</li>
                 <li>✓ Gerenciar seus arquivos</li>
             </ul>
-            
-            <p>Vamos começar? Clique abaixo para acessar sua conta:</p>
-            
-            <center>
-                <a href="{{ login_link }}" class="button">Acessar Minha Conta</a>
-            </center>
-            
-            <p>Se tiver dúvidas, verifique nossa documentação ou entre em contato com o suporte.</p>
         </div>
     </body>
     </html>
