@@ -1,5 +1,4 @@
 import pytest
-import runpy
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from app import main as app_main
@@ -26,7 +25,7 @@ class TestMain:
             raise KeyboardInterrupt()
 
         monkeypatch.setattr("asyncio.run", fake_run)
-        runpy.run_module("app.main", run_name="__main__")
+        app_main.run()
 
     def test_module_main_reraises_unexpected_exception(self, monkeypatch):
         def fake_run(coro):
@@ -36,4 +35,4 @@ class TestMain:
         monkeypatch.setattr("asyncio.run", fake_run)
 
         with pytest.raises(Exception, match="fatal"):
-            runpy.run_module("app.main", run_name="__main__")
+            app_main.run()
