@@ -69,9 +69,6 @@ await messaging_gateway.publish(
 - `job_failed`
 - `welcome`
 
-## Endpoints
-
-- `GET /health` — status da aplicação
 
 ## Testes
 para rodar os testes:
