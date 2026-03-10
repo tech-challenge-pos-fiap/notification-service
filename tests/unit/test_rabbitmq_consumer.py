@@ -3,14 +3,6 @@ from unittest.mock import AsyncMock, MagicMock, patch
 from app.infrastructure.messaging.rabbitmq_consumer import RabbitMQConsumer
 
 
-class _MessageProcessContext:
-    async def __aenter__(self):
-        return self
-
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        return False
-
-
 class TestRabbitMQConsumer:
     """Tests for RabbitMQConsumer"""
 
@@ -60,8 +52,8 @@ class TestRabbitMQConsumer:
         use_case.execute.assert_not_called()
 
     @pytest.mark.asyncio
-    async def test_process_message_invalid_json_nacks_message(self):
-        """Should nack message when payload is invalid JSON."""
+    async def test_process_message_invalid_json_rejects_message(self):
+        """Should reject message when payload is invalid JSON."""
         use_case = MagicMock()
         use_case.execute = AsyncMock()
         consumer = RabbitMQConsumer("amqp://guest:guest@localhost:5672/", use_case)
@@ -69,12 +61,15 @@ class TestRabbitMQConsumer:
         message = MagicMock()
         message.body = b"{invalid-json}"
         message.routing_key = "user.verification.email"
+        message.ack = AsyncMock()
         message.nack = AsyncMock()
-        message.process.return_value = _MessageProcessContext()
+        message.reject = AsyncMock()
 
         await consumer._process_message(message)
 
-        message.nack.assert_awaited_once_with(requeue=True)
+        message.reject.assert_awaited_once_with(requeue=False)
+        message.ack.assert_not_called()
+        message.nack.assert_not_called()
         use_case.execute.assert_not_called()
 
     @pytest.mark.asyncio
@@ -160,12 +155,35 @@ class TestRabbitMQConsumer:
         message = MagicMock()
         message.body = b'{"notification_type":"email_verification"}'
         message.routing_key = "user.verification.email"
+        message.ack = AsyncMock()
         message.nack = AsyncMock()
-        message.process.return_value = _MessageProcessContext()
+        message.reject = AsyncMock()
 
         await consumer._process_message(message)
 
         message.nack.assert_awaited_once_with(requeue=True)
+        message.ack.assert_not_called()
+        message.reject.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_process_message_success_acks_message(self):
+        """Should ack message after successful processing."""
+        use_case = MagicMock()
+        use_case.execute = AsyncMock()
+        consumer = RabbitMQConsumer("amqp://guest:guest@localhost:5672/", use_case)
+
+        message = MagicMock()
+        message.body = b'{"notification_type":"email_verification","user_id":1,"email":"user@example.com","template":"verify_email","subject":"Verify"}'
+        message.routing_key = "user.verification.email"
+        message.ack = AsyncMock()
+        message.nack = AsyncMock()
+        message.reject = AsyncMock()
+
+        await consumer._process_message(message)
+
+        message.ack.assert_awaited_once()
+        message.nack.assert_not_called()
+        message.reject.assert_not_called()
 
     @pytest.mark.asyncio
     async def test_run_forever_calls_connect_declare_and_disconnect(self):

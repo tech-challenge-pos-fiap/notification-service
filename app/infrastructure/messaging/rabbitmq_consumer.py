@@ -73,27 +73,27 @@ class RabbitMQConsumer:
         """
         Process a message from the queue.
         """
-        async with message.process():
-            try:
-                body = json.loads(message.body.decode())
-                logger.info(
-                    f"Received message: {message.routing_key}",
-                    extra={"routing_key": message.routing_key},
-                )
-                await self._handle_notification_event(body)
-                
-            except json.JSONDecodeError as e:
-                logger.error(
-                    f"Failed to parse message: {str(e)}",
-                    exc_info=True,
-                )
-                await message.nack(requeue=True)
-            except Exception as e:
-                logger.error(
-                    f"rror processing message: {str(e)}",
-                    exc_info=True,
-                )
-                await message.nack(requeue=True)
+        try:
+            body = json.loads(message.body.decode())
+            logger.info(
+                f"Received message: {message.routing_key}",
+                extra={"routing_key": message.routing_key},
+            )
+            await self._handle_notification_event(body)
+            await message.ack()
+            
+        except json.JSONDecodeError as e:
+            logger.error(
+                f"Failed to parse message: {str(e)}",
+                exc_info=True,
+            )
+            await message.reject(requeue=False)
+        except Exception as e:
+            logger.error(
+                f"Error processing message: {str(e)}",
+                exc_info=True,
+            )
+            await message.nack(requeue=True)
     
     async def _handle_notification_event(self, event: Dict[str, Any]) -> None:
         """
