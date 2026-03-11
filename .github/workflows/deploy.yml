@@ -30,7 +30,7 @@ env:
   ECR_REPOSITORY: 'fiapx-dev-notification'
   ECS_SERVICE: 'fiapx-dev-notification'
   ECS_CLUSTER: 'fiapx-dev-cluster'
-  CONTAINER_NAME: 'notification-service'
+  CONTAINER_NAME: 'notification'
 
 jobs:
   test:
