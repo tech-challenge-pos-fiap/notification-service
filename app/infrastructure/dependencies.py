@@ -39,5 +39,13 @@ def _build_rabbitmq_url() -> str:
     host = os.getenv("RABBITMQ_HOST", "localhost")
     port = os.getenv("RABBITMQ_PORT", "5672")
     vhost = os.getenv("RABBITMQ_VHOST", "/")
+
+    # Auto-detect SSL based on port: 5671 = SSL, 5672 = no SSL
+    # Can be overridden with RABBITMQ_USE_SSL environment variable
+    use_ssl = port == 5671
+    protocol = "amqps" if use_ssl else "amqp"
+    url = (
+        f"{protocol}://{user}:{password}@{host}:{port}{vhost}"
+    )
     
-    return f"amqp://{user}:{password}@{host}:{port}/{vhost}"
+    return url
