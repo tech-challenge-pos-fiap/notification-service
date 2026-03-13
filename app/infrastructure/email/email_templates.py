@@ -107,11 +107,7 @@ TEMPLATES = {
                 <li><strong>Duração do Processamento:</strong> {{ processing_time }}</li>
             </ul>
             
-            <p>Seu vídeo agora está disponível. Clique abaixo para visualizar:</p>
-            
-            <center>
-                <a href="{{ video_link }}" class="button" style="color: white !important;">Ver vídeo</a>
-            </center>
+            <p>Seu vídeo agora está disponível!</p>
         </div>
     </body>
     </html>
