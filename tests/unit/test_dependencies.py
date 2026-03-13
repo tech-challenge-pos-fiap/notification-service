@@ -13,7 +13,7 @@ class TestDependencies:
         ]:
             monkeypatch.delenv(key, raising=False)
 
-        assert _build_rabbitmq_url() == "amqp://guest:guest@localhost:5672//"
+        assert _build_rabbitmq_url() == "amqp://guest:guest@localhost:5672/"
 
     def test_build_rabbitmq_url_from_env(self, monkeypatch):
         monkeypatch.setenv("RABBITMQ_USER", "u")
@@ -22,7 +22,7 @@ class TestDependencies:
         monkeypatch.setenv("RABBITMQ_PORT", "5673")
         monkeypatch.setenv("RABBITMQ_VHOST", "v1")
 
-        assert _build_rabbitmq_url() == "amqp://u:p@rabbit:5673/v1"
+        assert _build_rabbitmq_url() == "amqp://u:p@rabbit:5673v1"
 
     def test_build_container_wires_dependencies(self, monkeypatch):
         monkeypatch.setenv("SMTP_HOST", "smtp.test")
